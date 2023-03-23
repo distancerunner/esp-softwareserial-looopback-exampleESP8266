@@ -10,9 +10,7 @@ EspSoftwareSerial::UART victronSerial; // RX, TX Using Software Serial so we can
 
 void setup() {
   Serial.begin(19200);
-  // victronSerial.begin(38400);
   victronSerial.begin(19200, SWSERIAL_8N1, rxPin, txPin, false);
-//  Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
   delay(1000);
   Serial.println("Loopback program started");
   if (!victronSerial) { // If the object did not initialize, then its configuration is invalid
@@ -25,13 +23,10 @@ void setup() {
 
 void loop() {
   if(Serial.available()){
-    // Serial.println("Serial.available");
     Serial.write("-");
     victronSerial.write(Serial.read());
-    // Serial.write(victronSerial.available());
   }
   if(victronSerial.available()){
-    // Serial.println("victronSerial.available");
     Serial.write(".");
     Serial.write(victronSerial.read());
   }
